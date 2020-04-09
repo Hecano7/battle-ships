@@ -178,11 +178,9 @@ function doesShipFit(x, y) {
 function nextClick(row, column) {
   if (firstCoordinate[0][0] < row) {
     console.log('down');
-    console.log(clickableCoordinates);
     clickableCoordinates.splice(0, 1);
     clickableCoordinates.splice(1, 2);
     clickableCoordinates.push(`${row + 1},${column}`);
-    console.log(clickableCoordinates);
 
     if (gameboard[row] == undefined) {
       clickableCoordinates.push(
@@ -387,6 +385,13 @@ function enableButtons() {
   }
 }
 
+function delay(){
+    earaseBoard();
+    enableButtons();
+    gameboardContainer.addEventListener("click", clickHandlerBoard);
+    document.getElementById("counter").innerHTML = `Now it's Player ${playersGameBoards.length + 1}'s turn to set their ships.`;
+}
+
 function setPlayersGameBoards() {
   if (
     Destroyer == false &&
@@ -401,8 +406,7 @@ function setPlayersGameBoards() {
     Submarine = true;
     Battleship = true;
     Carrier = true;
-    earaseBoard();
-    enableButtons();
+    gameboardContainer.removeEventListener("click", clickHandlerBoard);
     document.getElementById("counter").innerHTML = `Now it's Player ${playersGameBoards.length + 1}'s turn to set their ships.`;
     individualsShotsFired.push([
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -414,6 +418,7 @@ function setPlayersGameBoards() {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
     ]);
+    setTimeout(delay,3000)
   }
 }
 
