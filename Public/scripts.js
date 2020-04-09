@@ -177,8 +177,12 @@ function doesShipFit(x, y) {
 
 function nextClick(row, column) {
   if (firstCoordinate[0][0] < row) {
-    // console.log('down');
+    console.log('down');
+    console.log(clickableCoordinates);
+    clickableCoordinates.splice(0, 1);
+    clickableCoordinates.splice(1, 2);
     clickableCoordinates.push(`${row + 1},${column}`);
+    console.log(clickableCoordinates);
 
     if (gameboard[row] == undefined) {
       clickableCoordinates.push(
@@ -188,8 +192,10 @@ function nextClick(row, column) {
   }
 
   if (firstCoordinate[0][0] > row) {
-    // console.log('up');
+    console.log('up');
+    clickableCoordinates.splice(1, 3);
     clickableCoordinates.push(`${row - 1},${column}`);
+    console.log(clickableCoordinates);
 
     if (gameboard[row - 2] == undefined) {
       clickableCoordinates.push(
@@ -199,8 +205,10 @@ function nextClick(row, column) {
   }
 
   if (firstCoordinate[0][1] > column) {
-    // console.log('left');
+    console.log('left');
+    clickableCoordinates.splice(0, 3);
     clickableCoordinates.push(`${row},${column - 1}`);
+    console.log(clickableCoordinates);
 
     if (gameboard[column - 2] == undefined) {
       clickableCoordinates.push(
@@ -210,8 +218,11 @@ function nextClick(row, column) {
   }
 
   if (firstCoordinate[0][1] < column) {
-    // console.log('right');
+    console.log('right');
+    clickableCoordinates.splice(0, 2);
+    clickableCoordinates.splice(1, 1);
     clickableCoordinates.push(`${row},${column + 1}`);
+    console.log(clickableCoordinates);
 
     if (gameboard[column + 1] == undefined) {
       clickableCoordinates.push(
