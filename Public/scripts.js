@@ -386,10 +386,16 @@ function enableButtons() {
 }
 
 function delay(){
-    earaseBoard();
-    enableButtons();
-    gameboardContainer.addEventListener("click", clickHandlerBoard);
-    document.getElementById("counter").innerHTML = `Now it's Player ${playersGameBoards.length + 1}'s turn to set their ships.`;
+  console.log('hello');
+  if (playersGameBoards.length < totalPlayers) {
+      enableButtons();
+  }
+  earaseBoard();
+  gameboardContainer.addEventListener("click", clickHandlerBoard);
+  document.getElementById("counter").innerHTML = `Now it's Player ${playersGameBoards.length + 1}'s turn to set their ships.`;
+  if (playersGameBoards.length == totalPlayers) {
+    document.getElementById("counter").innerHTML = `Ready to play the game? Begin with Player 1 to take the first shot.`;
+  }
 }
 
 function setPlayersGameBoards() {

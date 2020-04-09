@@ -119,11 +119,14 @@ body{
   html{
     background-image: url("/img/us-navy-phone.png");
     background-size: 100% 100%;
-    min-height: 100%;
+    min-height: 40em;
+    min-width: 100%;
   }
   body{
     background-image: unset;
-    min-height: 100%;
+    min-height: 40em;
+    min-width: 100%;
+
   }
   #gameboard {
     background-color: rgba(255, 255, 255, 0.4);
