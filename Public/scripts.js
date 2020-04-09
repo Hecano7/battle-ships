@@ -302,11 +302,11 @@ function initiateGame(row, column) {
   gameboardContainer.removeEventListener("click", clickHandlerBoard);
   if (playersGameBoards[counter][row - 1][column - 1] == 1) {
     individualsShotsFired[counter][row - 1][column - 1] = 1;
-    document.getElementById("gameboard").style.backgroundImage = "url('file:///Users/user/Documents/projects/Battle%20Ships/img/hit.jpg')";
+    document.getElementById("gameboard").style.backgroundImage = "url('/img/hit.jpg')";
     document.getElementById("counter").innerHTML = `Hit!`;
   } else {
     individualsShotsFired[counter][row - 1][column - 1] = 2;
-    document.getElementById("gameboard").style.backgroundImage = "url('file:///Users/user/Documents/projects/Battle%20Ships/img/miss.jpg')";
+    document.getElementById("gameboard").style.backgroundImage = "url('/img/miss.jpg')";
     document.getElementById("counter").innerHTML = `Missed!`;
   }
   if (counter == totalPlayers - 1) {
@@ -427,7 +427,7 @@ function earaseBoard() {
 function showField() {
   revertGridOpacity();
   gameboardContainer.addEventListener("click", clickHandlerBoard);
-  document.getElementById("gameboard").style.backgroundImage = "url(file:///Users/user/Documents/projects/Battle%20Ships/img/ocean.jpg)";
+  document.getElementById("gameboard").style.backgroundImage = "url(/img/ocean.jpg)";
   document.getElementById("counter").innerHTML = `Player ${parseInt(counter) + 1}'s Turn and their previous guesses.`;
   for (let rows = 1; rows < 9; rows++) {
     for (let columns = 1; columns < 9; columns++) {
