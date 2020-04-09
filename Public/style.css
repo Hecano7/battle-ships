@@ -115,15 +115,10 @@ body{
 
 @media (max-width:830px){
   html{
-    height: 100%;
-    width:100%; 
+    background-image: url("/img/us-navy-phone.png");
   }
   body{
-    text-align: center;
-    margin: 0px;
-    width:100%;
-    height: 100%;
-    background-image: url("/img/us-navy-phone.png");
+    background-image: url("");
   }
   #gameboard {
     background-color: rgba(255, 255, 255, 0.4);
@@ -197,7 +192,6 @@ body{
   .inline{
     flex-direction: column;
     width: 100%;
-    height: 100%;
     align-items: center;
     margin-top: 0em;
   }
