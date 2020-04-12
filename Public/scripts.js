@@ -485,7 +485,7 @@ function blinking(){
   // clickableCoordinates => clickableCoordinates.map(obj => document.getElementById(obj).className = "nextClick");
   if(counter == 0 && clickableCoordinates.length>0){
     for(var i = 0; i < clickableCoordinates.length; i++){
-      if(document.getElementById(clickableCoordinates[i])){
+      if(document.getElementById(clickableCoordinates[i]) && document.getElementById(clickableCoordinates[i]).className != "ships cell"){
     document.getElementById(clickableCoordinates[i]).className = "nextClick";
       }
   }
