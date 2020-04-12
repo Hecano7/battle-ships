@@ -62,7 +62,7 @@ function clickHandlerBoard(e) {
     if (playersGameBoards.length == totalPlayers) {
       document.getElementById("left-align").remove();
       document.getElementById("counter").innerHTML = `Ready to play the game? Begin with Player 1 to take the first shot.`;
-   }
+    }
   }
 }
 
@@ -141,7 +141,7 @@ function secondPossibleClick(row, column) {
   if (west.length + east.length >= shipSize - 1) {
     clickableCoordinates.push(sides[0]);
     clickableCoordinates.push(sides[1]);
-  }
+  };
 }
 
 function doesShipFit(x, y) {
@@ -181,35 +181,35 @@ function nextClick(row, column) {
     clickableCoordinates.splice(0, 1);
     clickableCoordinates.splice(1, 2);
     clickableCoordinates.push(`${row + 1},${column}`);
-
+    
     if (gameboard[row] == undefined) {
       clickableCoordinates.push(
         `${firstCoordinate[0][0] - 1},${firstCoordinate[0][1]}`
-      );
+        );
+      }
     }
-  }
-
-  if (firstCoordinate[0][0] > row) {
-    console.log('up');
-    clickableCoordinates.splice(1, 3);
-    clickableCoordinates.push(`${row - 1},${column}`);
-    console.log(clickableCoordinates);
-
-    if (gameboard[row - 2] == undefined) {
-      clickableCoordinates.push(
-        `${firstCoordinate[0][0] + 1},${firstCoordinate[0][1]}`
-      );
-    }
-  }
-
-  if (firstCoordinate[0][1] > column) {
-    console.log('left');
-    clickableCoordinates.splice(0, 3);
-    clickableCoordinates.push(`${row},${column - 1}`);
-    console.log(clickableCoordinates);
-
-    if (gameboard[column - 2] == undefined) {
-      clickableCoordinates.push(
+    
+    if (firstCoordinate[0][0] > row) {
+      console.log('up');
+      clickableCoordinates.splice(1, 3);
+      clickableCoordinates.push(`${row - 1},${column}`);
+      console.log(clickableCoordinates);
+      
+      if (gameboard[row - 2] == undefined) {
+        clickableCoordinates.push(
+          `${firstCoordinate[0][0] + 1},${firstCoordinate[0][1]}`
+          );
+        }
+      }
+      
+      if (firstCoordinate[0][1] > column) {
+        console.log('left');
+        clickableCoordinates.splice(0, 3);
+        clickableCoordinates.push(`${row},${column - 1}`);
+        console.log(clickableCoordinates);
+        
+        if (gameboard[column - 2] == undefined) {
+       clickableCoordinates.push(
         `${firstCoordinate[0][0]},${firstCoordinate[0][1] + 1}`
       );
     }
@@ -249,6 +249,7 @@ function useNextButton() {
   counter = "0";
   shipToggle();
   enableButtons();
+  blinkingOff();
   document.getElementById("counter").innerHTML = "Select a button to set a ship.";
 };
 
@@ -329,16 +330,15 @@ function setShips(row, column, e, currentClick) {
   if (counter == 0 && doesShipFit(row, column)) {
     firstCoordinate.push([row, column]);
     secondPossibleClick(row, column);
+    blinking();
     placeShip(e);
-    document.getElementById(
-      "counter"
-    ).innerHTML = `Select ${clickDisplay} coordinates to set your ship.`;
+    document.getElementById("counter").innerHTML = `Select ${clickDisplay} coordinates to set your ship.`;
   }
-  if (
-    firstCoordinate.length == 1 && clickableCoordinates.includes(currentClick)) {
+  if (firstCoordinate.length == 1 && clickableCoordinates.includes(currentClick)) {
     if (counter > 0 && counter < shipSize) {
-      nextClick(row, column);
-    }
+      nextClick(row, column)
+    };
+    blinking();
     placeShip(e);
     document.getElementById("counter").innerHTML = `Select ${clickDisplay} coordinates to set your ship.`;
   }
@@ -478,4 +478,32 @@ function revertGridOpacity(){
   for(i = 0; i < cells.length; i++) {
     document.getElementsByClassName("cell")[i].style.opacity = "1";
   } 
+}
+
+function blinking(){
+  blinkingOff();
+  // clickableCoordinates => clickableCoordinates.map(obj => document.getElementById(obj).className = "nextClick");
+  if(counter == 0 && clickableCoordinates.length>0){
+    for(var i = 0; i < clickableCoordinates.length; i++){
+      if(document.getElementById(clickableCoordinates[i])){
+    document.getElementById(clickableCoordinates[i]).className = "nextClick";
+      }
+  }
+}
+if(counter > 0){
+  if(clickableCoordinates[1]){  
+    document.getElementById(clickableCoordinates[1]).className = "nextClick";
+}else{    document.getElementById(clickableCoordinates[0]).className = "nextClick";
+}
+}
+}
+
+function blinkingOff(){
+  for (let rows = 1; rows < 9; rows++) {
+    for (let columns = 1; columns < 9; columns++) {
+      if(document.getElementById(`${rows},${columns}`).className == "nextClick"){
+      document.getElementById(`${rows},${columns}`).className = "cell";
+      }
+    }
+  }
 }
