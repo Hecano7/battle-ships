@@ -253,10 +253,10 @@ body{
       min-width: 45px;
       min-height: 33px;
       display: inline-block;
-    -webkit-animation: blinking 1s infinite;  /* Safari 4+ */
-    -moz-animation: blinking 1s infinite;  /* Fx 5+ */
-    -o-animation: blinking 1s infinite;  /* Opera 12+ */
-    animation: blinking 1s infinite;  /* IE 10+, Fx 29+ */
+      -webkit-animation: blinking 1s infinite;  /* Safari 4+ */
+      -moz-animation: blinking 1s infinite;  /* Fx 5+ */
+      -o-animation: blinking 1s infinite;  /* Opera 12+ */
+      animation: blinking 1s infinite;  /* IE 10+, Fx 29+ */
     }
 }
 

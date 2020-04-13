@@ -61,12 +61,15 @@ function clickHandlerBoard(e) {
     setShips(row, column, e, currentClick);
     if (playersGameBoards.length == totalPlayers) {
       document.getElementById("left-align").remove();
+      counter = 1;
+      showField();
       document.getElementById("counter").innerHTML = `Ready to play the game? Begin with Player 1 to take the first shot.`;
     }
   }
 }
 
 function placeShip(e) {
+  console.log("placeShip");
   let row = Number(e.target.id[0]);
   let column = Number(e.target.id[2]);
   counter += 1;
@@ -193,7 +196,7 @@ function nextClick(row, column) {
       console.log('up');
       clickableCoordinates.splice(1, 3);
       clickableCoordinates.push(`${row - 1},${column}`);
-      console.log(clickableCoordinates);
+      console.log("up"+clickableCoordinates);
       
       if (gameboard[row - 2] == undefined) {
         clickableCoordinates.push(
@@ -308,6 +311,7 @@ function shipToggle() {
 }
 
 function initiateGame(row, column) {
+  console.log(counter);
   changeGridOpacity();
   gameboardContainer.removeEventListener("click", clickHandlerBoard);
   if (playersGameBoards[counter][row - 1][column - 1] == 1) {
@@ -338,6 +342,7 @@ function setShips(row, column, e, currentClick) {
     if (counter > 0 && counter < shipSize) {
       nextClick(row, column)
     };
+    console.log(clickableCoordinates);
     blinking();
     placeShip(e);
     document.getElementById("counter").innerHTML = `Select ${clickDisplay} coordinates to set your ship.`;
@@ -486,16 +491,24 @@ function blinking(){
   if(counter == 0 && clickableCoordinates.length>0){
     for(var i = 0; i < clickableCoordinates.length; i++){
       if(document.getElementById(clickableCoordinates[i]) && document.getElementById(clickableCoordinates[i]).className != "ships cell"){
-    document.getElementById(clickableCoordinates[i]).className = "nextClick";
+       document.getElementById(clickableCoordinates[i]).className = "nextClick";
       }
+    }
   }
-}
-if(counter > 0){
-  if(clickableCoordinates[1]){  
-    document.getElementById(clickableCoordinates[1]).className = "nextClick";
-}else{    document.getElementById(clickableCoordinates[0]).className = "nextClick";
-}
-}
+  if(counter > 0){
+    if(clickableCoordinates[1]){ 
+      if(document.getElementById(clickableCoordinates[1]) != null){ 
+        console.log("up");
+      document.getElementById(clickableCoordinates[1]).className = "nextClick";
+      }else{
+        if(document.getElementById(clickableCoordinates[2]).className != "ships cell"){       
+      document.getElementById(clickableCoordinates[2]).className = "nextClick";}
+    } 
+    }else{    
+      console.log(clickableCoordinates); 
+      document.getElementById(clickableCoordinates[0]).className = "nextClick";
+    }
+  }
 }
 
 function blinkingOff(){
