@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("counter").innerHTML = `To begin set your ships on the field.`;
   createBoard();
 });
-
+let toggle = 2;
 let playersTurn = "Player 1";
 let totalPlayers = 2;
 let playersGameBoards = [];
@@ -62,7 +62,7 @@ function clickHandlerBoard(e) {
     if (playersGameBoards.length == totalPlayers) {
       document.getElementById("left-align").remove();
       counter = 1;
-      showField();
+      initiateGame();
       document.getElementById("counter").innerHTML = `Ready to play the game? Begin with Player 1 to take the first shot.`;
     }
   }
@@ -326,8 +326,9 @@ function initiateGame(row, column) {
   if (counter == totalPlayers - 1) {
     counter = -1;
   }
-  counter++;
   setTimeout(showField, 3000);
+  counter++;
+  console.log("counter",counter);
 }
 
 function setShips(row, column, e, currentClick) {
@@ -399,6 +400,7 @@ function delay(){
   gameboardContainer.addEventListener("click", clickHandlerBoard);
   document.getElementById("counter").innerHTML = `Now it's Player ${playersGameBoards.length + 1}'s turn to set their ships.`;
   if (playersGameBoards.length == totalPlayers) {
+    counter = 1;
     document.getElementById("counter").innerHTML = `Ready to play the game? Begin with Player 1 to take the first shot.`;
   }
 }
@@ -419,6 +421,10 @@ function setPlayersGameBoards() {
     Carrier = true;
     gameboardContainer.removeEventListener("click", clickHandlerBoard);
     document.getElementById("counter").innerHTML = `Now it's Player ${playersGameBoards.length + 1}'s turn to set their ships.`;
+    if(playersGameBoards.length == 2){
+      revertGridOpacity();
+      document.getElementById("counter").innerHTML = `Ready to play the game? Begin with Player 1 to take the first shot.`;
+    };
     individualsShotsFired.push([
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -452,10 +458,11 @@ function earaseBoard() {
 }
 
 function showField() {
+  console.log("counter",counter);
   revertGridOpacity();
+  document.getElementById("counter").innerHTML = `Player ${toggle}'s Turn and their previous guesses.`;
   gameboardContainer.addEventListener("click", clickHandlerBoard);
   document.getElementById("gameboard").style.backgroundImage = "url(/img/ocean.jpg)";
-  document.getElementById("counter").innerHTML = `Player ${parseInt(counter) + 1}'s Turn and their previous guesses.`;
   for (let rows = 1; rows < 9; rows++) {
     for (let columns = 1; columns < 9; columns++) {
       if (individualsShotsFired[counter][rows - 1][columns - 1] == 1) {
@@ -468,7 +475,10 @@ function showField() {
         document.getElementById(`${rows},${columns}`).className = "cell";
       }
     }
-  }
+  };
+  if(toggle == 1){
+    toggle = 2
+  }else{toggle = 1}
 }
 
 function changeGridOpacity(){
